@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# About
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project showcases the use of GitHub GraphQL API by displaying a list of all React repositories. Pagination has been implemented in the form of an infinite scroll and a simple search enables you to update the query string.
+
+## How To Run
+
+Create .env.local by coping .env file and replace <token> with a valid GitHub personal access token.
+The project can be run inside the docker by using `docker-compose up --build dev` or locally using standard CRA scripts.
 
 ## Available Scripts
 
