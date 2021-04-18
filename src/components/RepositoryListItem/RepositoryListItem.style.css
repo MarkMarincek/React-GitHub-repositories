@@ -1,0 +1,5 @@
+.list__item {
+  color: black;
+  display: flex;
+  flex: 1;
+}
