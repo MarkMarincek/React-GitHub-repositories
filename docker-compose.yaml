@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  dev:
+    container_name: react-repositories-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - 3000:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  test:
+    container_name: react-repositories-test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    environment:
+      - CI=true
+    command: npm test
+  prod:
+    container_name: react-repositories-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - '1337:80'
