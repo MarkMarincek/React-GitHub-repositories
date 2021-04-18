@@ -27,7 +27,6 @@ function App() {
     SearchGitRepositoriesVars
   >(SEARCH_GIT_REPOSITORIES, {
     variables: { query, last: PAGINATION_ITEMS_PER_PAGE },
-    fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   });
   const { ref: intersectionRef } = useOnIntersectionChange(onBottomIntersectionChange, '200px');

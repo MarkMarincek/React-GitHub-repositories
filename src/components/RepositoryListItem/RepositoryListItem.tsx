@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, List } from 'antd';
+import { List } from 'antd';
 import { Repository } from 'models/interfaces';
 import './RepositoryListItem.style.css';
 
