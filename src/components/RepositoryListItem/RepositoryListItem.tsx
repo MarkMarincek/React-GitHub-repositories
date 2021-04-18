@@ -7,5 +7,10 @@ interface RepositoryListItemProps {
 }
 
 export default function RepositoryListItem({ repository }: RepositoryListItemProps) {
-  return <List.Item>{repository.name}</List.Item>;
+  const { name, stargazerCount, forkCount } = repository;
+  return (
+    <List.Item>
+      {name} - 🌟 {stargazerCount} - 🍴 {forkCount}
+    </List.Item>
+  );
 }
