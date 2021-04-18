@@ -1,8 +1,8 @@
-import React, { RefObject } from 'react';
+import React, { RefObject, useState } from 'react';
 import { Repository } from 'models/interfaces';
 import { useQuery } from '@apollo/client';
 import RepositoryListItem from 'components/RepositoryListItem';
-import { List, Divider, Spin } from 'antd';
+import { List, Divider, Spin, Input } from 'antd';
 import './App.css';
 import {
   SearchGitRepositoriesResponse,
@@ -21,11 +21,13 @@ function rowKey(repo: Repository) {
 }
 
 function App() {
+  const [query, setQuery] = useState('React');
   const { data, loading, fetchMore } = useQuery<
     SearchGitRepositoriesResponse,
     SearchGitRepositoriesVars
   >(SEARCH_GIT_REPOSITORIES, {
-    variables: { query: 'React', last: PAGINATION_ITEMS_PER_PAGE },
+    variables: { query, last: PAGINATION_ITEMS_PER_PAGE },
+    fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   });
   const { ref: intersectionRef } = useOnIntersectionChange(onBottomIntersectionChange, '200px');
@@ -35,11 +37,18 @@ function App() {
     fetchMore({ variables: { after: data.search.pageInfo.endCursor } });
   }
 
+  function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setQuery(event.currentTarget.value);
+  }
+
   const repositories = data?.search.nodes;
 
   return (
     <>
-      <Divider>Header</Divider>
+      <Divider>Git Repositories</Divider>
+      <div className="input__wrapper">
+        <Input size="large" value={query} onChange={onInputChange} />
+      </div>
       {repositories && (
         <List rowKey={rowKey} bordered dataSource={repositories} renderItem={renderListItem} />
       )}
